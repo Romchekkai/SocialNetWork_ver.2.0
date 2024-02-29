@@ -51,8 +51,8 @@ namespace SocialNetWork.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-           // if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
 
                 var user = _mapper.Map<User>(model);
 
@@ -65,10 +65,10 @@ namespace SocialNetWork.Controllers.Account
              else
               {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                return RedirectToAction("Index", "Home");
+                
             }
-          //  }
-           // return RedirectToAction("Index", "Home");
+           }
+           return RedirectToAction("Index", "Home");
         }
 
         private async Task<List<User>> GetAllFriend(User user)
