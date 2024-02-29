@@ -1,0 +1,89 @@
+﻿@model SocialNetWork.BL.ViewModels.Account.UserViewModel
+@{
+    ViewData["Title"] = "MyPage";
+}
+<div class="page_container">
+    <div class="aboutme">
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">Имя пользователя</th>
+                    <td><strong>@Model.User.FirstName @Model.User.LastName</strong></td>
+                </tr>
+                <tr>
+                    <th scope="row">Статус</th>
+                    <td>@Model.User.Status</td>
+                </tr>
+                <tr>
+                    <th scope="row">Дата рождения</th>
+                    <td>@Model.User.BirthDate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <th scope="row">О себе</th>
+                    <td>@Model.User.About</td>
+                </tr>
+                <tr>
+                    <th scope="row">Почтовый адрес</th>
+                    <td>@Model.User.Email</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4> <br /><a asp-controller="AccountManager" asp-action="FriendList">Список друзей</a> </h4>
+        <div>
+            
+
+            @if (Model.Friends.Count != 0)
+            {
+                @foreach (var user in @Model.Friends)
+                {
+                    <div class="friends_container">
+                        <div class="mrgn center-align">
+                            <img src="@user.Image" class="ava" />
+                        </div>
+                        <div class="mrgn center-align">
+                            @user.GetFullName()
+                        </div>
+                        <div class="mrgn center-align">
+                            <form asp-controller="AccountManager" asp-action="Chat" asp-route-id="@user.Id" method="post">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    Сообщение
+                                </button>
+                            </form>
+                        </div>
+                        <div class="mrgn center-align">
+                            <form asp-controller="AccountManager" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    Удалить из друзей
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <label> У вас пока нет друзей.</label>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="myimgcontainer">
+        <img class="my-img" src="@Model.User.Image" alt=" Нет изображения" />
+        <form method="get" asp-controller="AccountManager" asp-action="UserEdit">
+            <input class="myedit_button" type="submit" value="Редактировать профиль" />
+        </form>
+        <form method="post" asp-controller="AccountManager" asp-action="Logout">
+            <input class="mypage_button" type="submit" value="Выход" />
+        </form>
+    </div>
+</div>
+
+
+
+  
+
+
+              

@@ -1,4 +1,4 @@
-namespace WebService.Models
+namespace SocialNetWork.Models
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using SocialNetWork.DAL.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+           
+        </li>
+        <li class="nav-item">
+            <form method="post" asp-controller="AccountManager" asp-action="Logout">
+                <input class="enter_submit" type="submit" value="Выход" />
+            </form>
+        </li>
+        <li class="nav-item">
+            <form method="get" asp-controller="AccountManager" asp-action="GoBack">
+                <input class="enter_submit" type="submit" value="Вернуться" />
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>
